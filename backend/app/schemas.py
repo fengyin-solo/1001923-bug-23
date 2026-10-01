@@ -13,6 +13,8 @@ class PageResult(BaseModel, Generic[T]):
     total: int
     page: int = 1
     size: int = 20
+    # 筛选无命中时的说明：告诉调用方是哪一步条件对不上；命中时为 None。
+    notice: str | None = None
 
 
 class ActionResult(BaseModel):
