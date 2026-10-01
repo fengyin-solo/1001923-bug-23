@@ -15,6 +15,25 @@ class PageResult(BaseModel, Generic[T]):
     size: int = 20
 
 
+class FilterStep(BaseModel):
+    """过滤管线中单步的命中情况，用于在命不中时说明卡在哪一步。"""
+
+    field: str
+    keyword: str | None = None
+    matched: int
+    applied: bool
+
+
+class CollectorPageResult(BaseModel):
+    """集电线路分页结果：除列表外额外返回每个过滤条件逐步命中的条数。"""
+
+    items: list[dict[str, Any]]
+    total: int
+    page: int = 1
+    size: int = 20
+    steps: list[FilterStep] = Field(default_factory=list)
+
+
 class ActionResult(BaseModel):
     ok: bool
     message: str
